@@ -2,16 +2,14 @@
 
 public static class Scenes {
     // All levels in order by scene name
-    public static string[] levels = { "Level 1" , "Level 2", " Level 3", "Level 4"};
+    public static string[] levels = { "Level 1" , "Level 2", "Level 3", "Level 4"};
 
     public static void ResetLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public static void LoadLevel(int levelID) {
-        if (levelID <= 0 || levelID > levels.Length)
-            throw new System.IndexOutOfRangeException("Reminder: levels are 1-indexed");
-        SceneManager.LoadScene($"Level {levelID}");
+    public static void LoadLevel(string level) {
+        SceneManager.LoadScene(level);
     }
 
     public static void LoadNextLevel() {
@@ -22,6 +20,6 @@ public static class Scenes {
             if (currentLevel == levels[i])
                 break;
         }
-        LoadLevel(i + 2); // +1 because 1-indexed, +1 because "next"
+        LoadLevel(levels[i+1]);
     }
 }

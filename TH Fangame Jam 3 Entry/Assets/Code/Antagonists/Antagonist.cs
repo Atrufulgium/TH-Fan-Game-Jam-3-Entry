@@ -7,6 +7,7 @@ public abstract class Antagonist : MonoBehaviour
     protected abstract int CooldownDuration { get; set; }
     protected abstract int Cooldown { get; set; }
     protected abstract float FlySpeed { get; set; }
+    protected virtual float FlyHeight { get; set; } = 7;
 
     protected Transform tr;
 
@@ -23,7 +24,7 @@ public abstract class Antagonist : MonoBehaviour
             Cooldown--;
 
         // Move to "above" the player
-        Vector3 goal = 7 * Vector3.up;
+        Vector3 goal = FlyHeight * Vector3.up;
         if (PlayerData.CirnoDead) {
             goal += PlayerData.ClownTr.position;
         } else if (PlayerData.ClownDead) {
