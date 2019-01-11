@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
     int harmLayerID;
     int cirnoLayerID;
     int clownLayerID;
+    int finishLayerID;
     // Invulnerability, -1 = no invulnerability, any more is the amount of gameticks left
     int iframes = -1;
     // Whether in death mode, -1 = not in death mode, any more is the amount of ticks left
@@ -20,6 +21,7 @@ public class PlayerData : MonoBehaviour
 
     public GameObject aura;
     SpriteRenderer auraRenderer;
+    Rigidbody2D body;
 
     public GameObject otherPlayer;
 
@@ -31,11 +33,15 @@ public class PlayerData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CirnoDead = false;
+        ClownDead = false;
         harmLayerID = LayerMask.NameToLayer("Harmful");
         cirnoLayerID = LayerMask.NameToLayer("Cirno");
         clownLayerID = LayerMask.NameToLayer("Clownpiece");
+        finishLayerID = LayerMask.NameToLayer("Finish");
         auraRenderer = aura.GetComponent<SpriteRenderer>();
         movement = GetComponent<Movement>();
+        body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -55,6 +61,9 @@ public class PlayerData : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.gameObject.layer == finishLayerID) {
+            Scenes.LoadNextLevel();
+        }
         if (collision.gameObject.layer == harmLayerID && iframes < 0 && deathmode < 0) {
             EnterDeathmode();
         }
@@ -64,11 +73,16 @@ public class PlayerData : MonoBehaviour
         if (deathmode != -1)
             return; //already in deathmode, don't want to reset the stuff
         Debug.Log($"{gameObject.name} entered deathmode");
-        if (gameObject.layer == cirnoLayerID)
+        if (gameObject.layer == cirnoLayerID) {
             CirnoDead = true;
-        else
-            ClownDead = true;
+            GameObject createdObject = Instantiate((GameObject) Resources.Load("Prefabs/CirnoIce"));
+            Vector2 pos = createdObject.transform.position;
+            pos = transform.position;
+            createdObject.transform.position = new Vector3(pos.x, pos.y, createdObject.transform.position.z);
+        } else
+            ClownDead = false;
 
+        body.simulated = false;
         deathmode = deathmodeDuration;
         //screw caching it it doesn't get called often at all
         aura.GetComponent<CircleCollider2D>().enabled = true;
@@ -91,5 +105,6 @@ public class PlayerData : MonoBehaviour
         aura.GetComponent<CircleCollider2D>().enabled = false;
         transform.position = otherPlayer.transform.position + Vector3.up;
         movement.ResetMovement();
+        body.simulated = true;
     }
 }

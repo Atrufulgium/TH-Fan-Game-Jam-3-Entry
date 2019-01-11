@@ -11,6 +11,15 @@
         // No culling or depth, transparancy
         Cull Off ZWrite Off ZTest Always Blend One OneMinusSrcAlpha
 
+		Tags
+		{
+			"Queue" = "Transparent"
+			"IgnoreProjector" = "True"
+			"RenderType" = "Transparent"
+			"PreviewType" = "Plane"
+			"CanUseSpriteAtlas" = "True"
+		}
+
         Pass
         {
             CGPROGRAM

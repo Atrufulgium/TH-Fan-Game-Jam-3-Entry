@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerData))]
@@ -42,8 +43,17 @@ public class Movement : MonoBehaviour
             data.ExitDeathmode();
         }
 
-        if (tr.position.y < -20) {
-            data.EnterDeathmode();
+        if (tr.position.y < -100) {
+            Scenes.ResetLevel();
+        }
+
+# if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.R)) {
+            Scenes.ResetLevel();
+        }
+# endif
+        if (PlayerData.CirnoDead && PlayerData.ClownDead) {
+            Scenes.ResetLevel();
         }
     }
 
