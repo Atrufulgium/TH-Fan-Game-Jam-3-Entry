@@ -6,6 +6,7 @@ public class Reimu : Antagonist
 {
     protected override int CooldownDuration { get; set; } = 90;
     protected override int Cooldown { get; set; } = 120;
+    protected override float FlySpeed { get; set; } = 3;
 
     protected override void Shoot() {
         if (!PlayerData.CirnoDead)
