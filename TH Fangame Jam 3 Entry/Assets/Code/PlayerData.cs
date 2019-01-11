@@ -17,7 +17,7 @@ public class PlayerData : MonoBehaviour
     public bool Dead { get => deathmode != -1; }
 
     private static int deathmodeDuration = 300;
-    private static int iframeduration = 120;
+    private static int iframeduration = 30;
 
     public GameObject aura;
     SpriteRenderer auraRenderer;
@@ -30,6 +30,9 @@ public class PlayerData : MonoBehaviour
     public static bool CirnoDead = false;
     public static bool ClownDead = false;
 
+    public static Transform CirnoTr;
+    public static Transform ClownTr;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,11 @@ public class PlayerData : MonoBehaviour
         cirnoLayerID = LayerMask.NameToLayer("Cirno");
         clownLayerID = LayerMask.NameToLayer("Clownpiece");
         finishLayerID = LayerMask.NameToLayer("Finish");
+        if (gameObject.layer == cirnoLayerID) {
+            CirnoTr = transform;
+        } else {
+            ClownTr = transform;
+        }
         auraRenderer = aura.GetComponent<SpriteRenderer>();
         movement = GetComponent<Movement>();
         body = GetComponent<Rigidbody2D>();
@@ -65,6 +73,7 @@ public class PlayerData : MonoBehaviour
             Scenes.LoadNextLevel();
         }
         if (collision.gameObject.layer == harmLayerID && iframes < 0 && deathmode < 0) {
+            collision.gameObject.GetComponent<Bullet>().StartShrink();
             EnterDeathmode();
         }
     }
@@ -79,8 +88,9 @@ public class PlayerData : MonoBehaviour
             Vector2 pos = createdObject.transform.position;
             pos = transform.position;
             createdObject.transform.position = new Vector3(pos.x, pos.y, createdObject.transform.position.z);
-        } else
-            ClownDead = false;
+        } else {
+            ClownDead = true;
+        }
 
         body.simulated = false;
         deathmode = deathmodeDuration;

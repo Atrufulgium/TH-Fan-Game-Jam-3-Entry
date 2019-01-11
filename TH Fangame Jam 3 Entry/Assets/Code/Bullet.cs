@@ -35,6 +35,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void StartShrink() {
+        lifetime = maxLifetime = 60;
+    }
+
     // Move the bullet "direction" with a speed of "speed" tiles a second.
     public void ChangeSpeed(Vector2 direction, float speed) {
         scaledDirection = direction.normalized * speed;
