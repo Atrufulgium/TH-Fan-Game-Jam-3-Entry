@@ -14,15 +14,21 @@ public class Freezeable : MonoBehaviour
 
     public Sprite halfFrozenTexture;
     public Sprite freezeTexture;
-    public GameObject[] neighbours;
 
+    List<GameObject> neighbours = new List<GameObject>(8);
+    Transform tr;
     SpriteRenderer spriterenderer;
 
     // Start is called before the first frame update
     void Start() {
+        tr = transform;
         skillClownID = LayerMask.NameToLayer("SkillClownpiece");
         skillCirnoID = LayerMask.NameToLayer("SkillCirno");
         spriterenderer = GetComponent<SpriteRenderer>();
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Freezable")) {
+            if ((tr.position - g.transform.position).sqrMagnitude <= 1.1 && g != gameObject)
+                neighbours.Add(g);
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +42,7 @@ public class Freezeable : MonoBehaviour
     // Start freezing
     public void Freeze() {
         if (freezeTimer != -1)
-            return; //already burning
+            return; //already freezing
         freezeTimer = freezeDuration;
         spriterenderer.sprite = halfFrozenTexture;
     }
@@ -46,7 +52,7 @@ public class Freezeable : MonoBehaviour
         foreach (GameObject neighbour in neighbours) {
             if (neighbour == null)
                 continue;
-            neighbour.GetComponent<Burnable>().Burn();
+            neighbour.GetComponent<Freezeable>().Freeze();
         }
         GetComponent<Rigidbody2D>().isKinematic = false;
         GetComponent<Collider2D>().isTrigger = false;
@@ -54,7 +60,7 @@ public class Freezeable : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D other) {
-        if (other.gameObject.layer == skillCirnoID) {
+        if (other.gameObject.layer == skillCirnoID && PlayerData.CirnoDead) {
             Freeze();
         }
     }

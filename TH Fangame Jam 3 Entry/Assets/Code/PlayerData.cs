@@ -19,13 +19,14 @@ public class PlayerData : MonoBehaviour
     private static int deathmodeDuration = 300;
     private static int iframeduration = 30;
 
-    public GameObject aura;
+    GameObject aura;
     SpriteRenderer auraRenderer;
     Rigidbody2D body;
 
-    public GameObject otherPlayer;
+    GameObject otherPlayer;
 
     Movement movement;
+    bool isCirno = false;
 
     public static bool CirnoDead = false;
     public static bool ClownDead = false;
@@ -43,8 +44,13 @@ public class PlayerData : MonoBehaviour
         clownLayerID = LayerMask.NameToLayer("Clownpiece");
         finishLayerID = LayerMask.NameToLayer("Finish");
         if (gameObject.layer == cirnoLayerID) {
+            isCirno = true;
+            aura = GameObject.FindWithTag("shittyworkaround");
             CirnoTr = transform;
+            otherPlayer = GameObject.FindWithTag("Clownpiece");
         } else {
+            aura = transform.GetChild(0).gameObject;
+            otherPlayer = GameObject.FindWithTag("Cirno");
             ClownTr = transform;
         }
         auraRenderer = aura.GetComponent<SpriteRenderer>();
@@ -73,7 +79,9 @@ public class PlayerData : MonoBehaviour
             Scenes.LoadNextLevel();
         }
         if (collision.gameObject.layer == harmLayerID && iframes < 0 && deathmode < 0) {
-            collision.gameObject.GetComponent<Bullet>().StartShrink();
+            Bullet bul = collision.gameObject.GetComponent<Bullet>();
+            if (bul != null) // There are now bullets and spikes that are both harmful
+                collision.gameObject.GetComponent<Bullet>().StartShrink();
             EnterDeathmode();
         }
     }
@@ -81,7 +89,7 @@ public class PlayerData : MonoBehaviour
     public void EnterDeathmode() {
         if (deathmode != -1)
             return; //already in deathmode, don't want to reset the stuff
-        Debug.Log($"{gameObject.name} entered deathmode");
+
         if (gameObject.layer == cirnoLayerID) {
             CirnoDead = true;
             GameObject createdObject = Instantiate((GameObject) Resources.Load("Prefabs/CirnoIce"));
@@ -91,7 +99,6 @@ public class PlayerData : MonoBehaviour
         } else {
             ClownDead = true;
         }
-
         body.simulated = false;
         deathmode = deathmodeDuration;
         //screw caching it it doesn't get called often at all
@@ -108,7 +115,6 @@ public class PlayerData : MonoBehaviour
 
         deathmode = -1;
         iframes = iframeduration;
-        Debug.Log($"{gameObject.name} exited deathmode");
         Color col = auraRenderer.color;
         col.a = 0.5f;
         auraRenderer.color = col;

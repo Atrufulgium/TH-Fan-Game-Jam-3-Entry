@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
         if (data.Dead)
             return; //Dead people can't move. (alternatively, a different moveset sometime?)
         // If there's no vertical movement for two ticks in a row, it's safe to assume the player is on the ground.
-        bool notFalling = Mathf.Abs(body.velocity.y) <= 0.01;
+        bool notFalling = Mathf.Abs(body.velocity.y) <= 0.05;
         grounded = notFalling && previousTickGrounded;
         Vector2 force = Vector2.zero;
         // Process regular movement input

@@ -13,16 +13,23 @@ public class Burnable : MonoBehaviour
     static int burnDuration = 30;
 
     public Sprite burnTexture;
-    public GameObject[] neighbours;
 
+    List<GameObject> neighbours = new List<GameObject>(8);
+    Transform tr;
     SpriteRenderer spriterenderer;
 
     // Start is called before the first frame update
     void Start()
     {
+        tr = transform;
         skillClownID = LayerMask.NameToLayer("SkillClownpiece");
         skillCirnoID = LayerMask.NameToLayer("SkillCirno");
         spriterenderer = GetComponent<SpriteRenderer>();
+        // I really hope FindGameObjectsWithTag caches its stuff, it'd be a mess otherwise
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Burnable")) {
+            if ((tr.position - g.transform.position).sqrMagnitude <= 1.1 && g != gameObject)
+                neighbours.Add(g);
+        }
     }
 
     // Update is called once per frame
