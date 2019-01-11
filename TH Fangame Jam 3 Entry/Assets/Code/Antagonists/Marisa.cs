@@ -18,7 +18,7 @@ public class Marisa : Antagonist
 
     protected override void Shoot() {
         if (bulletSpamCounter == maxBulletSpam) { // Start: aim + warning
-            target = Random.Range(0,1) < 0.5f;
+            target = Random.Range(0f,1f) < 0.5f;
             if (PlayerData.ClownDead)
                 target = false;
             if (PlayerData.CirnoDead)
@@ -48,7 +48,7 @@ public class Marisa : Antagonist
             CooldownDuration = 180;
             bulletSpamCounter = maxBulletSpam;
         } else { //Middle: spam
-            Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf) + Random.Range(-0.2f, 0.2f), 8, Color.white, Color.yellow);
+            Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf) + Random.Range(-0.175f, 0.175f), 8, Color.white, Color.yellow);
             bulletSpamCounter--;
         }
     }

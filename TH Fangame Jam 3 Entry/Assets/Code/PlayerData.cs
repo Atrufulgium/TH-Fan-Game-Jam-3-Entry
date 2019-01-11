@@ -17,7 +17,7 @@ public class PlayerData : MonoBehaviour
     public bool Dead { get => deathmode != -1; }
 
     private static int deathmodeDuration = 300;
-    private static int iframeduration = 30;
+    private static int iframeduration = 0; // Too broken
 
     GameObject aura;
     SpriteRenderer auraRenderer;
@@ -131,7 +131,7 @@ public class PlayerData : MonoBehaviour
         col.a = 0.5f;
         auraRenderer.color = col;
         aura.GetComponent<CircleCollider2D>().enabled = false;
-        transform.position = otherPlayer.transform.position + Vector3.up;
+        transform.position = otherPlayer.transform.position;
         movement.ResetMovement();
         body.simulated = true;
     }
