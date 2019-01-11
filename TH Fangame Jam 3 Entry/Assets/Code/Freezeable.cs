@@ -41,8 +41,8 @@ public class Freezeable : MonoBehaviour
 
     // Start freezing
     public void Freeze() {
-        if (freezeTimer != -1)
-            return; //already freezing
+        if (freezeTimer != -1 || !PlayerData.CirnoDead)
+            return; //already freezing or can't freeze
         freezeTimer = freezeDuration;
         spriterenderer.sprite = halfFrozenTexture;
     }

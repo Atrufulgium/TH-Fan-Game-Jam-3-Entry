@@ -90,7 +90,7 @@ public class PlayerData : MonoBehaviour
         if (deathmode != -1)
             return; //already in deathmode, don't want to reset the stuff
 
-        if (gameObject.layer == cirnoLayerID) {
+        if (isCirno) {
             CirnoDead = true;
             GameObject createdObject = Instantiate((GameObject) Resources.Load("Prefabs/CirnoIce"));
             Vector2 pos = createdObject.transform.position;
@@ -108,7 +108,7 @@ public class PlayerData : MonoBehaviour
     public void ExitDeathmode() {
         if (deathmode < 0)
             return; //not in deathmode shouldn't do anything
-        if (gameObject.layer == cirnoLayerID)
+        if (isCirno)
             CirnoDead = false;
         else
             ClownDead = false;
