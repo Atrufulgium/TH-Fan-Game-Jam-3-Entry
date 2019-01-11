@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
 
     Rigidbody2D body;
     PlayerData data;
+    Transform tr;
 
     bool grounded;
     bool previousTickGrounded;
@@ -29,6 +30,7 @@ public class Movement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         data = GetComponent<PlayerData>();
+        tr = transform;
     }
 
     // Update is called once per frame
@@ -39,9 +41,15 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(respawn)) {
             data.ExitDeathmode();
         }
+
+        if (tr.position.y < -20) {
+            data.EnterDeathmode();
+        }
     }
 
     private void ProcessMovement() {
+        if (data.Dead)
+            return; //Dead people can't move. (alternatively, a different moveset sometime?)
         // If there's no vertical movement for two ticks in a row, it's safe to assume the player is on the ground.
         grounded = body.velocity.y == 0 && previousTickGrounded;
         Vector2 force = Vector2.zero;

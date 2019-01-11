@@ -13,6 +13,8 @@ public class PlayerData : MonoBehaviour
     // Whether in death mode, -1 = not in death mode, any more is the amount of ticks left
     int deathmode = -1;
 
+    public bool Dead { get => deathmode != -1; }
+
     private static int deathmodeDuration = 300;
     private static int iframeduration = 120;
 
@@ -59,6 +61,8 @@ public class PlayerData : MonoBehaviour
     }
 
     public void EnterDeathmode() {
+        if (deathmode != -1)
+            return; //already in deathmode, don't want to reset the stuff
         Debug.Log($"{gameObject.name} entered deathmode");
         if (gameObject.layer == cirnoLayerID)
             CirnoDead = true;
@@ -71,6 +75,8 @@ public class PlayerData : MonoBehaviour
     }
 
     public void ExitDeathmode() {
+        if (deathmode < 0)
+            return; //not in deathmode shouldn't do anything
         if (gameObject.layer == cirnoLayerID)
             CirnoDead = false;
         else
