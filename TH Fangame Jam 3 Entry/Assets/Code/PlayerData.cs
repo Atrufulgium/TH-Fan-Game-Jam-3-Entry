@@ -75,14 +75,26 @@ public class PlayerData : MonoBehaviour
             iframes--;
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        if (collision.gameObject.layer == finishLayerID) {
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Sign") {
+            other.GetComponent<SignPop>().PopSign();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.tag == "Sign") {
+            other.GetComponent<SignPop>().PutSign();
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.gameObject.layer == finishLayerID) {
             Scenes.LoadNextLevel();
         }
-        if (collision.gameObject.layer == harmLayerID && iframes < 0 && deathmode < 0) {
-            Bullet bul = collision.gameObject.GetComponent<Bullet>();
+        if (other.gameObject.layer == harmLayerID && iframes < 0 && deathmode < 0) {
+            Bullet bul = other.gameObject.GetComponent<Bullet>();
             if (bul != null) // There are now bullets and spikes that are both harmful
-                collision.gameObject.GetComponent<Bullet>().StartShrink();
+                other.gameObject.GetComponent<Bullet>().StartShrink();
             EnterDeathmode();
         }
     }
