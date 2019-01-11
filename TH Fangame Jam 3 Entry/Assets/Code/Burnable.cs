@@ -43,8 +43,8 @@ public class Burnable : MonoBehaviour
 
     // Start burning
     public void Burn() {
-        if (burntimer != -1)
-            return; //already burning
+        if (burntimer != -1 || !PlayerData.ClownDead)
+            return; //already burning or not dead
         burntimer = burnDuration;
         spriterenderer.sprite = burnTexture;
     }
@@ -60,7 +60,8 @@ public class Burnable : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D other) {
-        if (other.gameObject.layer == skillClownID) {
+        //Debug.Log($"other: {LayerMask.LayerToName(other.gameObject.layer)}");
+        if (other.gameObject.layer == skillClownID && PlayerData.ClownDead) {
             Burn();
         }
     }

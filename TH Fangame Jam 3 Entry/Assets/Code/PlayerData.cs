@@ -49,7 +49,7 @@ public class PlayerData : MonoBehaviour
             CirnoTr = transform;
             otherPlayer = GameObject.FindWithTag("Clownpiece");
         } else {
-            aura = transform.GetChild(0).gameObject;
+            aura = GameObject.FindWithTag("shittyworkaround2");
             otherPlayer = GameObject.FindWithTag("Cirno");
             ClownTr = transform;
         }
@@ -64,6 +64,7 @@ public class PlayerData : MonoBehaviour
         if (deathmode == 0) {
             ExitDeathmode();
         } else if (deathmode > 0) {
+            body.simulated = false;
             Color col = auraRenderer.color;
             col.a = 0.5f - (deathmode / (2f * deathmodeDuration));
             auraRenderer.color = col;
@@ -99,7 +100,6 @@ public class PlayerData : MonoBehaviour
         } else {
             ClownDead = true;
         }
-        body.simulated = false;
         deathmode = deathmodeDuration;
         //screw caching it it doesn't get called often at all
         aura.GetComponent<CircleCollider2D>().enabled = true;

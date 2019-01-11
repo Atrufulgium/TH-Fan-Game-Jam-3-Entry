@@ -2,7 +2,7 @@
 
 public static class Scenes {
     // All levels in order by scene name
-    public static string[] levels = { "Level 1" , "Level 2"};
+    public static string[] levels = { "Level 1" , "Level 2", " Level 3"};
 
     public static void ResetLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -9,6 +9,7 @@ TagManager:
   - Freezable
   - Burnable
   - shittyworkaround
+  - shittyworkaround2
   layers:
   - Default
   - TransparentFX
