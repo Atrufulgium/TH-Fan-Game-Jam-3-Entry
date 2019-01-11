@@ -39,7 +39,7 @@ public class Movement : MonoBehaviour
     {
         ProcessMovement();
 
-        if (Input.GetKey(respawn)) {
+        if (Input.GetKeyDown(respawn)) {
             data.ExitDeathmode();
         }
 

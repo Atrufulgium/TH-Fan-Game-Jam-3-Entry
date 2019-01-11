@@ -37,7 +37,7 @@ public class Aya : Antagonist
                 Bullet.CreateBullet(tr.position, 295 * Mathf.Deg2Rad, 1.5f * i, Color.white, Color.blue);
             }
             phase = 0;
-            CooldownDuration = 210;
+            CooldownDuration = 240;
         }
     }
 }
