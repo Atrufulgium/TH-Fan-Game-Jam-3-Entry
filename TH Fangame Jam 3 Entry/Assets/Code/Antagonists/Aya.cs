@@ -5,7 +5,7 @@ using UnityEngine;
 public class Aya : Antagonist
 {
     protected override int CooldownDuration { get; set; } = 120;
-    protected override int Cooldown { get; set; } = 120;
+    protected override int Cooldown { get; set; } = 180;
     protected override float FlySpeed { get; set; } = 15;
     protected override float FlyHeight { get; set; } = 6;
 
@@ -37,7 +37,7 @@ public class Aya : Antagonist
                 Bullet.CreateBullet(tr.position, 295 * Mathf.Deg2Rad, 1.5f * i, Color.white, Color.blue);
             }
             phase = 0;
-            CooldownDuration = 240;
+            CooldownDuration = 210;
         }
     }
 }
