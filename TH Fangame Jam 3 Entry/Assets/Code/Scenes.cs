@@ -2,7 +2,10 @@
 
 public static class Scenes {
     // All levels in order by scene name
-    public static string[] levels = { "Level 1" , "Level 2", "Level 3", "Level 4"};
+    // 1-3: Hakurei Shrine
+    // 4-6: Forest of Magic
+    // 7-9: Youkai Mountain
+    public static string[] levels = { "Level 1" , "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
 
     public static void ResetLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

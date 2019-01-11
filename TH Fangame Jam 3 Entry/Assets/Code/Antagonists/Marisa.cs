@@ -5,7 +5,7 @@ using UnityEngine;
 public class Marisa : Antagonist
 {
     protected override int CooldownDuration { get; set; } = 120;
-    protected override int Cooldown { get; set; } = 60;
+    protected override int Cooldown { get; set; } = 30;
     protected override float FlySpeed { get; set; } = 8;
     protected override float FlyHeight { get; set; } = 10;
 
