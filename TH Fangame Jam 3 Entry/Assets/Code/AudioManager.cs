@@ -14,6 +14,9 @@ public class AudioManager : MonoBehaviour
     public AudioSource MountainMusic;
     private static AudioManager manager = null;
 
+    public static float MusicVolume { get => musicVolume; set => SetVolume(value); }
+    static float musicVolume = 1f;
+
     void Start()
     {
         Scenes.CheckLevel();
@@ -58,5 +61,14 @@ public class AudioManager : MonoBehaviour
             case Music.Mountain: manager.MountainMusic.Play(); break;
         }
         playing = music;
+    }
+
+    public static void SetVolume(float percentage) {
+        percentage = Mathf.Clamp01(percentage);
+        manager.TitleMusic.volume = percentage;
+        manager.ShrineMusic.volume = percentage;
+        manager.ForestMusic.volume = percentage;
+        manager.MountainMusic.volume = percentage;
+        musicVolume = percentage;
     }
 }

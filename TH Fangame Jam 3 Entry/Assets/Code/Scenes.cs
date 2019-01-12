@@ -5,6 +5,7 @@ public static class Scenes {
     // 1-3: Hakurei Shrine
     // 4-6: Forest of Magic
     // 7-9: Youkai Mountain
+    // also isn't this beautifully the shittiest way to handle this? I should be proud. I can't think of anything worse even if I try.
     public static string[] levels = { "Main Menu", "Level 1" , "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Finish Screen"};
     public static int currentLevel = 0;
 
