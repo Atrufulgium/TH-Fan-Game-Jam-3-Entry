@@ -41,9 +41,11 @@ public class Menu : MonoBehaviour
                 switch (function) {
                     case Function.Play:
                         Scenes.LoadLevel("Level 1");
+                        AudioManager.StartSFX(AudioManager.SFX.Click);
                         break;
                     case Function.Manual:
                         affectedObject.SetActive(!affectedObject.activeSelf);
+                        AudioManager.StartSFX(AudioManager.SFX.Click);
                         break;
                     case Function.Quit:
                         Application.Quit();
@@ -71,6 +73,7 @@ public class Menu : MonoBehaviour
     }
 
     public void Select() {
+        AudioManager.StartSFX(AudioManager.SFX.Select);
         goselect = true;
     }
 

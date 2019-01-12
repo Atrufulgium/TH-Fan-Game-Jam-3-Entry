@@ -56,6 +56,7 @@ public class Burnable : MonoBehaviour
                 continue;
             neighbour.GetComponent<Burnable>().Burn();
         }
+        AudioManager.StartSFX(AudioManager.SFX.Vaporise);
         Destroy(gameObject);
     }
 

@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public enum Music { None, Title, Shrine, Forest, Mountain }
 
-    public enum SFX { Death, Ressurect, Freeze };
+    public enum SFX { Death, Ressurect, Freeze, Vaporise, Select, Click };
 
     static Music playing = Music.None;
 
@@ -44,8 +44,8 @@ public class AudioManager : MonoBehaviour
             StartMusic(Music.Shrine);
         else if (i <= 6)
             StartMusic(Music.Forest);
-        else if (i <= 9)
-            StartMusic(Music.Mountain);
+        else if (i <= 10)
+            StartMusic(Music.Mountain); // The final screen should also have the mountain theme
         else
             StartMusic(Music.None);
     }
