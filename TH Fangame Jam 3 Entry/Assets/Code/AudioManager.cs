@@ -6,15 +6,20 @@ public class AudioManager : MonoBehaviour
 {
     public enum Music { None, Title, Shrine, Forest, Mountain }
 
+    public enum SFX { Death, Ressurect, Freeze };
+
     static Music playing = Music.None;
 
     public AudioSource TitleMusic;
     public AudioSource ShrineMusic;
     public AudioSource ForestMusic;
     public AudioSource MountainMusic;
+    public AudioSource[] soundEffects; // should align with the SFX enum
     private static AudioManager manager = null;
 
-    public static float MusicVolume { get => musicVolume; set => SetVolume(value); }
+    private static List<AudioSource> sfx = new List<AudioSource>(20);
+
+    public static float MusicVolume { get => musicVolume; set => SetBGMVolume(value); }
     static float musicVolume = 1f;
 
     void Start()
@@ -63,7 +68,12 @@ public class AudioManager : MonoBehaviour
         playing = music;
     }
 
-    public static void SetVolume(float percentage) {
+    // first a basic version that doesn't allow multiple of the same
+    public static void StartSFX(SFX sfx) {
+        manager.soundEffects[(int) sfx].Play();
+    }
+
+    public static void SetBGMVolume(float percentage) {
         percentage = Mathf.Clamp01(percentage);
         manager.TitleMusic.volume = percentage;
         manager.ShrineMusic.volume = percentage;

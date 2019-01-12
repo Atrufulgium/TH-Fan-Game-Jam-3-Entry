@@ -33,8 +33,10 @@ public class Freezeable : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (freezeTimer == 0)
+        if (freezeTimer == 0) {
             SpreadFreeze();
+            freezeTimer = -2;
+        }
         if (freezeTimer > 0)
             freezeTimer--;
     }
@@ -54,6 +56,7 @@ public class Freezeable : MonoBehaviour
                 continue;
             neighbour.GetComponent<Freezeable>().Freeze();
         }
+        AudioManager.StartSFX(AudioManager.SFX.Freeze);
         GetComponent<Rigidbody2D>().isKinematic = false;
         GetComponent<Collider2D>().isTrigger = false;
         spriterenderer.sprite = freezeTexture;

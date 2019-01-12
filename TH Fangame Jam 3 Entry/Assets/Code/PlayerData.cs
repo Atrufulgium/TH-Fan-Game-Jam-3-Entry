@@ -105,6 +105,7 @@ public class PlayerData : MonoBehaviour
 
         if (isCirno) {
             CirnoDead = true;
+            AudioManager.StartSFX(AudioManager.SFX.Freeze);
             GameObject createdObject = Instantiate((GameObject) Resources.Load("Prefabs/CirnoIce"));
             Vector2 pos = createdObject.transform.position;
             pos = transform.position;
@@ -115,6 +116,7 @@ public class PlayerData : MonoBehaviour
         deathmode = deathmodeDuration;
         //screw caching it it doesn't get called often at all
         aura.GetComponent<CircleCollider2D>().enabled = true;
+        AudioManager.StartSFX(AudioManager.SFX.Death);
     }
 
     public void ExitDeathmode() {
@@ -134,5 +136,6 @@ public class PlayerData : MonoBehaviour
         transform.position = otherPlayer.transform.position;
         movement.ResetMovement();
         body.simulated = true;
+        AudioManager.StartSFX(AudioManager.SFX.Ressurect);
     }
 }
