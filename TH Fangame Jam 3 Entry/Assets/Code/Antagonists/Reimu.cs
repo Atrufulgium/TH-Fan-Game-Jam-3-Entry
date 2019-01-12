@@ -10,8 +10,8 @@ public class Reimu : Antagonist
 
     protected override void Shoot() {
         if (!PlayerData.CirnoDead)
-            Bullet.CreateBullet(tr.position, tr.position.AngleTo(PlayerData.CirnoTr.position), 3, Color.white, Color.red);
+            Bullet.CreateBullet(tr.position, tr.position.AngleTo(PlayerData.CirnoTr.position), 3, Color.white, Color.HSVToRGB(Random.Range(0f,1f), 1, 1));
         if (!PlayerData.ClownDead)
-            Bullet.CreateBullet(tr.position, tr.position.AngleTo(PlayerData.ClownTr.position), 3, Color.white, Color.red);
+            Bullet.CreateBullet(tr.position, tr.position.AngleTo(PlayerData.ClownTr.position), 3, Color.white, Color.HSVToRGB(Random.Range(0f, 1f), 1, 1));
     }
 }
