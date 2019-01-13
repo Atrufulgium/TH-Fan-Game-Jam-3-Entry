@@ -47,11 +47,10 @@ public class Movement : MonoBehaviour
             Scenes.ResetLevel();
         }
 
-# if UNITY_EDITOR
         if (Input.GetKey(KeyCode.R)) {
             Scenes.ResetLevel();
         }
-# endif
+
         if (PlayerData.CirnoDead && PlayerData.ClownDead) {
             Scenes.ResetLevel();
         }

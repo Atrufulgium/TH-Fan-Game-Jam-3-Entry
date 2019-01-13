@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SignPop : MonoBehaviour
 {
+    public static int pops = 0;
 
     bool popped = false;
     int poptime = 0;
@@ -14,6 +15,7 @@ public class SignPop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pops = 0;
         child = transform.GetChild(0);
         startPos = child.position;
     }
@@ -30,6 +32,7 @@ public class SignPop : MonoBehaviour
     public void PopSign() {
         if (!popped) {
             popped = true;
+            pops++;
         }
     }
 
@@ -37,6 +40,7 @@ public class SignPop : MonoBehaviour
     public void PutSign() {
         if (popped) {
             popped = false;
+            pops--;
         }
     }
 }

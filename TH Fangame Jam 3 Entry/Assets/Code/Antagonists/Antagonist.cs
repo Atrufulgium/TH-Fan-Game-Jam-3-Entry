@@ -16,12 +16,14 @@ public abstract class Antagonist : MonoBehaviour
     }
 
     void Update() {
-        if (Cooldown == 0) {
-            Shoot();
-            Cooldown = CooldownDuration;
+        if (SignPop.pops == 0) {
+            if (Cooldown == 0) {
+                Shoot();
+                Cooldown = CooldownDuration;
+            }
+            if (Cooldown > 0)
+                Cooldown--;
         }
-        if (Cooldown > 0)
-            Cooldown--;
 
         // Move to "above" the player
         Vector3 goal = FlyHeight * Vector3.up;
