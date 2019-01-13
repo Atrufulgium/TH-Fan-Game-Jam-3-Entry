@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteAnimation))]
 public class Freezeable : MonoBehaviour
 {
     // Cirno for freezing it, Clownpiece for thawing it?
@@ -17,18 +18,20 @@ public class Freezeable : MonoBehaviour
 
     List<GameObject> neighbours = new List<GameObject>(8);
     Transform tr;
-    SpriteRenderer spriterenderer;
+
+    SpriteAnimation anim;
 
     // Start is called before the first frame update
     void Start() {
         tr = transform;
         skillClownID = LayerMask.NameToLayer("SkillClownpiece");
         skillCirnoID = LayerMask.NameToLayer("SkillCirno");
-        spriterenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<SpriteAnimation>();
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Freezable")) {
             if ((tr.position - g.transform.position).sqrMagnitude <= 1.1 && g != gameObject)
                 neighbours.Add(g);
         }
+        anim.currentFrame = Random.Range(0, 4);
     }
 
     // Update is called once per frame
@@ -46,7 +49,10 @@ public class Freezeable : MonoBehaviour
         if (freezeTimer != -1 || !PlayerData.CirnoDead)
             return; //already freezing or can't freeze
         freezeTimer = freezeDuration;
-        spriterenderer.sprite = halfFrozenTexture;
+        anim.currentAnimation = 1;
+        anim.cooldown = 1;
+        anim.frameDuration = 8;
+        anim.ApplyAnimation();
     }
 
     // Final phase of freezing: turn into a block of ice subject to physics
@@ -59,7 +65,10 @@ public class Freezeable : MonoBehaviour
         AudioManager.StartSFX(AudioManager.SFX.Freeze);
         GetComponent<Rigidbody2D>().isKinematic = false;
         GetComponent<Collider2D>().isTrigger = false;
-        spriterenderer.sprite = freezeTexture;
+        anim.frameDuration = 30;
+        anim.currentFrame = 0;
+        anim.currentAnimation = 2;
+        anim.ApplyAnimation();
     }
 
     private void OnTriggerStay2D(Collider2D other) {

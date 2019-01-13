@@ -16,7 +16,7 @@ public class SpriteAnimation : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
     Sprite[] anim;
-    int cooldown = 0;
+    public int cooldown = 0;
 
     private void Start() {
         cooldown = frameDuration;
@@ -42,9 +42,13 @@ public class SpriteAnimation : MonoBehaviour
             } else {
                 currentFrame++;
             }
-            spriteRenderer.sprite = anim[currentFrame + frameCount * currentAnimation];
+            ApplyAnimation();
 
             cooldown = frameDuration;
         }
+    }
+
+    public void ApplyAnimation() {
+        spriteRenderer.sprite = anim[currentFrame + frameCount * currentAnimation];
     }
 }
