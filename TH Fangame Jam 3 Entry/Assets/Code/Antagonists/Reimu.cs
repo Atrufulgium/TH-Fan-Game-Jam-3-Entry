@@ -13,5 +13,6 @@ public class Reimu : Antagonist
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(PlayerData.CirnoTr.position), 3, Color.white, Color.HSVToRGB(Random.Range(0f,1f), 1, 1));
         if (!PlayerData.ClownDead)
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(PlayerData.ClownTr.position), 3, Color.white, Color.HSVToRGB(Random.Range(0f, 1f), 1, 1));
+        AudioManager.StartSFX(AudioManager.SFX.Shoot1);
     }
 }

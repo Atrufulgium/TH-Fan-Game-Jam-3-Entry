@@ -14,6 +14,7 @@ public class Aya : Antagonist
     // todo: "feather"/arrow/whatever bullets. as long as they're not these round ones.
     protected override void Shoot() {
         if (phase == 0) {
+            AudioManager.StartSFX(AudioManager.SFX.Shoot1);
             for (int i = 2; i < 11; i++) {
                 Bullet.CreateBullet(tr.position, (i * 30f - 90) * Mathf.Deg2Rad, 5, Color.white, Color.red);
                 Bullet.CreateBullet(tr.position, (i * 30f - 90) * Mathf.Deg2Rad, 8, Color.white, Color.red);
@@ -30,6 +31,7 @@ public class Aya : Antagonist
             CooldownDuration = 30;
         } else {
             for (int i = 4; i <= 8; i++) {
+                AudioManager.StartSFX(AudioManager.SFX.Shoot2);
                 Bullet.CreateBullet(tr.position, 270 * Mathf.Deg2Rad, 3f * i, Color.white, Color.blue);
                 Bullet.CreateBullet(tr.position, 260 * Mathf.Deg2Rad, 2f * i, Color.white, Color.blue);
                 Bullet.CreateBullet(tr.position, 280 * Mathf.Deg2Rad, 2f * i, Color.white, Color.blue);

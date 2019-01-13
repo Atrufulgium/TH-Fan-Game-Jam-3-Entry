@@ -32,9 +32,13 @@ public class Marisa : Antagonist
             //todo stars
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf), 6, Color.white, Color.blue);
 
+            AudioManager.StartSFX(AudioManager.SFX.Shoot1);
+            AudioManager.StartSFX(AudioManager.SFX.MarisaCharge);
             bulletSpamCounter--;
             CooldownDuration = 120;
         } else if (bulletSpamCounter == maxBulletSpam - 1) { // begin
+            AudioManager.StartSFX(AudioManager.SFX.Shoot2);
+            AudioManager.StartSFX(AudioManager.SFX.Laser);
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf), 4, Color.white, Color.blue);
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf) + 30, 4, Color.white, Color.blue);
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf) - 30, 4, Color.white, Color.blue);

@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public enum Music { None, Title, Shrine, Forest, Mountain }
 
-    public enum SFX { Death, Ressurect, Freeze, Vaporise, Select, Click };
+    public enum SFX { Death, Ressurect, Freeze, Vaporise, Select, Click, Shoot1, Shoot2, MarisaCharge, Laser };
 
     static Music playing = Music.None;
 
