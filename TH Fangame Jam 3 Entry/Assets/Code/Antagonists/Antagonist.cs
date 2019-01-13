@@ -40,6 +40,14 @@ public abstract class Antagonist : MonoBehaviour
             Vector2 result = (goal - pos).normalized * FlySpeed * Time.deltaTime;
             tr.position += new Vector3(result.x, result.y, 0);
         }
+        // Change the sprite to reflect the move direction
+        Vector3 scale = transform.localScale;
+        if (goal.x < pos.x) {
+            scale.x = -1;
+        } else {
+            scale.x = 1;
+        }
+        transform.localScale = scale;
     }
 
     protected abstract void Shoot();
