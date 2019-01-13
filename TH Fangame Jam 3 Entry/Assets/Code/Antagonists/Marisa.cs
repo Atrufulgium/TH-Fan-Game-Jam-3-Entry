@@ -31,7 +31,6 @@ public class Marisa : Antagonist
 
             //todo stars
             Bullet.CreateBullet(tr.position, tr.position.AngleTo(schietschijf), 6, Color.white, Color.blue);
-
             AudioManager.StartSFX(AudioManager.SFX.Shoot1);
             AudioManager.StartSFX(AudioManager.SFX.MarisaCharge);
             bulletSpamCounter--;
