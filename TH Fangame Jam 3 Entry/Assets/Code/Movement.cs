@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour
     Rigidbody2D body;
     PlayerData data;
     Transform tr;
+    SpriteAnimation anim;
 
     bool grounded;
     bool previousTickGrounded;
@@ -31,12 +32,22 @@ public class Movement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         data = GetComponent<PlayerData>();
+        anim = GetComponent<SpriteAnimation>();
         tr = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Scenes.LoadLevel("Main Menu");
+        }
+
+        if (data.Dead) {
+            anim.currentAnimation = 2;
+        } else {
+            anim.currentAnimation = 0;
+        }
         ProcessMovement();
 
         if (Input.GetKeyDown(respawn)) {
@@ -65,10 +76,18 @@ public class Movement : MonoBehaviour
         Vector2 force = Vector2.zero;
         // Process regular movement input
         if (Input.GetKey(left)) {
+            anim.currentAnimation = 1;
             force += Vector2.left * speed;
+            Vector3 scale = tr.localScale;
+            scale.x = -1;
+            tr.localScale = scale;
         }
         if (Input.GetKey(right)) {
+            anim.currentAnimation = 1;
             force += Vector2.right * speed;
+            Vector3 scale = tr.localScale;
+            scale.x = 1;
+            tr.localScale = scale;
         }
         if (Input.GetKey(up) && grounded) {
             jumping = true;
