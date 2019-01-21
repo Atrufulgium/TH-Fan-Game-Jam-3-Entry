@@ -16,16 +16,18 @@ public class Movement : MonoBehaviour
     public float jump;
 
     public float maxHorizontalSpeed;
+    public float maxUpSpeed;
 
     Rigidbody2D body;
     PlayerData data;
     Transform tr;
     SpriteAnimation anim;
 
-    bool grounded;
-    bool previousTickGrounded;
+    public bool grounded;
+    public bool wallFront;
 
     bool jumping = false;
+    int jumpcooldown = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,9 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) {
             Scenes.LoadLevel("Main Menu");
         }
+
+        if (jumpcooldown > 0)
+            jumpcooldown--;
 
         if (data.Dead) {
             anim.currentAnimation = 2;
@@ -69,29 +74,28 @@ public class Movement : MonoBehaviour
 
     private void ProcessMovement() {
         if (data.Dead)
-            return; //Dead people can't move. (alternatively, a different moveset sometime?)
-        // If there's no vertical movement for two ticks in a row, it's safe to assume the player is on the ground.
-        bool notFalling = Mathf.Abs(body.velocity.y) <= 0.05;
-        grounded = notFalling && previousTickGrounded;
+            return; //Dead people can't move. (alterna
+
         Vector2 force = Vector2.zero;
         // Process regular movement input
-        if (Input.GetKey(left)) {
+        if (Input.GetKey(left) && !wallFront) {
             anim.currentAnimation = 1;
             force += Vector2.left * speed;
             Vector3 scale = tr.localScale;
             scale.x = -1;
             tr.localScale = scale;
         }
-        if (Input.GetKey(right)) {
+        if (Input.GetKey(right) && !wallFront) {
             anim.currentAnimation = 1;
             force += Vector2.right * speed;
             Vector3 scale = tr.localScale;
             scale.x = 1;
             tr.localScale = scale;
         }
-        if (Input.GetKey(up) && grounded) {
+        if (Input.GetKey(up) && grounded && jumpcooldown <= 0) {
             jumping = true;
             force += Vector2.up * jump;
+            jumpcooldown = 5;
         }
         body.velocity += force; //totally how physics works
         if (body.velocity.x < -maxHorizontalSpeed) {
@@ -99,13 +103,22 @@ public class Movement : MonoBehaviour
         } else if (body.velocity.x > maxHorizontalSpeed) {
             body.velocity = new Vector2(maxHorizontalSpeed, body.velocity.y);
         }
+        if (body.velocity.y > maxUpSpeed) {
+            body.velocity = new Vector2(body.velocity.x, maxUpSpeed);
+        }
 
         // Want to stop jumping when the player releases "jump"
         if (Input.GetKeyUp(up) && jumping) {
             jumping = false;
-            body.velocity = new Vector2(body.velocity.x, body.velocity.y/3);
+            if (body.velocity.y > 0)
+                body.velocity = new Vector2(body.velocity.x, body.velocity.y/3);
         }
-        previousTickGrounded = notFalling;
+        // Want to stop moving horizontally if no < or > pressed
+        if ((Input.GetKeyUp(left) && !Input.GetKey(right)) || (Input.GetKeyUp(right) && !Input.GetKey(left))) {
+            body.velocity = new Vector2(0, body.velocity.y);
+        }
+        grounded = false; // set to true again in GroundChecker if there's ground below, that executes before any of this.
+        wallFront = false;
     }
 
     public void ResetMovement() {

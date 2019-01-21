@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6062645756560753065}
   - component: {fileID: 1145277841309435630}
   - component: {fileID: 3945622780645305467}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TallRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         tr = transform;
-        
+        SignPop.pops = 0;
     }
 
     // Update is called once per frame

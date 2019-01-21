@@ -8,6 +8,7 @@ public class Freezeable : MonoBehaviour
 {
     // Cirno for freezing it, Clownpiece for thawing it?
     int skillClownID, skillCirnoID;
+    int groundLayerID;
 
     // How far the freezing's coming along. It should only propagate when cirno's dead.
     int freezeTimer = -1;
@@ -26,6 +27,7 @@ public class Freezeable : MonoBehaviour
         tr = transform;
         skillClownID = LayerMask.NameToLayer("SkillClownpiece");
         skillCirnoID = LayerMask.NameToLayer("SkillCirno");
+        groundLayerID = LayerMask.NameToLayer("Ground");
         anim = GetComponent<SpriteAnimation>();
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Freezable")) {
             if ((tr.position - g.transform.position).sqrMagnitude <= 1.1 && g != gameObject)
@@ -65,6 +67,7 @@ public class Freezeable : MonoBehaviour
         AudioManager.StartSFX(AudioManager.SFX.Freeze);
         GetComponent<Rigidbody2D>().isKinematic = false;
         GetComponent<Collider2D>().isTrigger = false;
+        gameObject.layer = groundLayerID;
         anim.frameDuration = 30;
         anim.currentFrame = 0;
         anim.currentAnimation = 2;

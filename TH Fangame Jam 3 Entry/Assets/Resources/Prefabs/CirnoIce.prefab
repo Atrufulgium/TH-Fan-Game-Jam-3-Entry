@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4693461812071872409}
   - component: {fileID: 4693461812071872387}
   - component: {fileID: 8654378067788643718}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CirnoIce
   m_TagString: Untagged
   m_Icon: {fileID: 0}

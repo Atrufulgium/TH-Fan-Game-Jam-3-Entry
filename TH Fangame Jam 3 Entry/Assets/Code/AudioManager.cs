@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     private static List<AudioSource> sfx = new List<AudioSource>(20);
 
     public static float MusicVolume { get => musicVolume; set => SetBGMVolume(value); }
-    static float musicVolume = 1f;
+    static float musicVolume = 0.1f;
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class AudioManager : MonoBehaviour
     }
 
     public static void StartBGM() {
+        SetBGMVolume(musicVolume);
         int i = Scenes.currentLevel;
         if (i == 0)
             StartMusic(Music.Title);

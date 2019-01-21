@@ -16454,6 +16454,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 1786170998275809552, guid: c69202aa920043048ab36352bfb0f2b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.48
+      objectReference: {fileID: 0}
     - target: {fileID: 1786170998992103857, guid: c69202aa920043048ab36352bfb0f2b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16508,11 +16513,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1786170998275809552, guid: c69202aa920043048ab36352bfb0f2b4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c69202aa920043048ab36352bfb0f2b4, type: 3}
@@ -16874,7 +16874,7 @@ GameObject:
   - component: {fileID: 718299114}
   - component: {fileID: 718299116}
   - component: {fileID: 718299115}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
