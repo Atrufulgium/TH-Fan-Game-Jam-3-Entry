@@ -161,3 +161,4 @@ MonoBehaviour:
   frameDuration: 60
   currentAnimation: 0
   currentFrame: 0
+  cooldown: 0
